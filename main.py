@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import time
-from tests import store_login, member_login, time_sale_list
+from tests import store_login, member_login, time_sale_list, list_view, advertisement_update, home
 
 chrome_driver_path = r"C:\Users\st20224116\Desktop\workspace\selenium\chromedriver.exe"
 service = Service(executable_path=chrome_driver_path)
@@ -17,6 +17,8 @@ try:
     member_tab = driver.current_window_handle
     member_login.run_test(driver)
 
+    list_view.run_test(driver)
+
     # --- 新しいタブで店舗用ログインページを開く
     driver.execute_script("window.open('http://10.24.108.179:8080/PurchasingSupportStoreSystem/StoreLogin.jsp', '_blank');")
     time.sleep(3)
@@ -28,6 +30,11 @@ try:
 
     # --- 店舗ログイン
     store_login.run_test(driver)
+
+    # --- 広告変更(変更後、ホームに遷移して確認)
+    advertisement_update.run_test(driver)
+    driver.switch_to.window(member_tab)
+    home.run_test(driver)
 
     # --- タイムセール一覧に遷移
     time_sale_list.run_test(driver)
