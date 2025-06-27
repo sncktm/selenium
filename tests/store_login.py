@@ -21,4 +21,4 @@ def run_test(driver):
 
     #Submitボタンをクリック
     driver.find_element(By.CLASS_NAME, "confirmed-button").click()
-    time.sleep(5)
+    time.sleep(1)

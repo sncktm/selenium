@@ -19,5 +19,4 @@ def run_test(driver):
     # タイムセール詳細をクリック
     driver.find_element(By.CLASS_NAME, "detail-button").click()
 
-    # 指定した秒数だけ待つ
-    time.sleep(5)
+    time.sleep()
