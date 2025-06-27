@@ -7,7 +7,7 @@ import time
 #seleniumのバージョンは４
 
 #ChromeDriveのパスを指定
-chrome_driver_path = r"C:\Users\st20224116\Documents\Selenium\chromedriver.exe"
+chrome_driver_path = r"C:\Users\st20224116\Desktop\workspace\selenium\chromedriver.exe"
 
 #Chromeを起動
 service = Service(executable_path=chrome_driver_path)
