@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import time
-from tests import store_login, member_login, time_sale_list, list_view, advertisement_update, home
+from tests import store_login, member_login, time_sale_list, list_view, advertisement_update, home, store_search
 
 chrome_driver_path = r"C:\Users\st20224116\Desktop\workspace\selenium\chromedriver.exe"
 service = Service(executable_path=chrome_driver_path)
@@ -17,7 +17,10 @@ try:
     member_tab = driver.current_window_handle
     member_login.run_test(driver)
 
+    store_search.run_test(driver)
+
     list_view.run_test(driver)
+
 
     # --- 新しいタブで店舗用ログインページを開く
     driver.execute_script("window.open('http://10.24.108.179:8080/PurchasingSupportStoreSystem/StoreLogin.jsp', '_blank');")
