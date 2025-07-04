@@ -8,10 +8,7 @@ import time
 
 #リスト登録です
 def run_test(driver):
-    #ホームへボタンクリック
-    home_link = driver.find_element(By.CSS_SELECTOR, "a.button.confirmed-button")
-    home_link.click()
-    time.sleep(4)
+
 
     # 検索メニュー（虫眼鏡のリンク）を探す
     search_menu = driver.find_element(By.XPATH, "//a[text()='検索']")

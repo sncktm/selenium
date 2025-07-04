@@ -5,9 +5,7 @@ def run_test(driver):
 
     time.sleep(3)
 
-    home_link = driver.find_element(By.CSS_SELECTOR, "a.button.confirmed-button")
-    home_link.click()
-    time.sleep(4)
+
 
     header_link = driver.find_element(By.XPATH, "//a[@href='MyPageServlet']")
     header_link.click()
