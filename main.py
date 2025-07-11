@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import time
-from tests import store_login, member_login, time_sale_list, list_view, advertisement_update, home, store_search,list_register
+from tests import goods_search, store_search, store_login, member_login, time_sale_list, list_view, advertisement_update, home, list_register, advertisement_register, advertisement_delete, time_sale_register
 
 chrome_driver_path = r"C:\Users\st20224116\Desktop\workspace\selenium\chromedriver.exe"
 service = Service(executable_path=chrome_driver_path)
@@ -17,9 +17,9 @@ try:
     member_tab = driver.current_window_handle
     member_login.run_test(driver)
 
+    # ---検索して、そのままリスト登録（卵）
     store_search.run_test(driver)
-
-    driver.get("http://10.24.108.179:8080/PurchasingSupportUserSystem/Home.jsp")
+    goods_search.run_test(driver)
 
     list_view.run_test(driver)
 
@@ -44,8 +44,10 @@ try:
     # --- 店舗ログイン
     store_login.run_test(driver)
 
-    # --- 広告変更(変更後、ホームに遷移して確認)
+    # --- 広告登録、変更、削除(変更後、ホームに遷移して確認)
+    advertisement_register.run_test(driver)
     advertisement_update.run_test(driver)
+    advertisement_delete.run_test(driver)
     driver.switch_to.window(member_tab)
     home.run_test(driver)
 
