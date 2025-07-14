@@ -3,9 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import time
+
 from tests import goods_search, store_search, store_login, member_login, time_sale_list, list_view, advertisement_update, home, list_register, advertisement_register, advertisement_delete, time_sale_register
 
-chrome_driver_path = r"C:\Users\st20224116\Desktop\workspace\selenium\chromedriver.exe"
+chrome_driver_path = r"C:\Users\st20224116\Desktop\selenium\chromedriver.exe"
 service = Service(executable_path=chrome_driver_path)
 driver = webdriver.Chrome(service=service)
 
@@ -13,7 +14,7 @@ try:
     driver.maximize_window()
 
     # --- 会員用ログインページ（最初のタブ）
-    driver.get("http://10.24.108.179:8080/PurchasingSupportUserSystem/MemberLogin.jsp")
+    driver.get("https://8b20592cf02f.ngrok-free.app/PurchasingSupportUserSystem/MemberLogin.jsp")
     member_tab = driver.current_window_handle
     member_login.run_test(driver)
 
@@ -23,17 +24,13 @@ try:
 
     list_view.run_test(driver)
 
-    driver.get("http://10.24.108.179:8080/PurchasingSupportUserSystem/Home.jsp")
+    list_register.run_test(driver)
 
     home.run_test(driver)
 
-    driver.get("http://10.24.108.179:8080/PurchasingSupportUserSystem/Home.jsp")
-
-    list_register.run_test(driver)
-
 
     # --- 新しいタブで店舗用ログインページを開く
-    driver.execute_script("window.open('http://10.24.108.179:8080/PurchasingSupportStoreSystem/StoreLogin.jsp', '_blank');")
+    driver.execute_script("window.open('https://8b20592cf02f.ngrok-free.app/PurchasingSupportStoreSystem/StoreLogin.jsp', '_blank');")
     time.sleep(3)
 
     # --- タブハンドル再取得・切り替え
@@ -52,6 +49,7 @@ try:
     home.run_test(driver)
 
     # --- タイムセール一覧に遷移
+    time_sale_register.run_test(driver)
     time_sale_list.run_test(driver)
 
     time.sleep(3)

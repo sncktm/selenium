@@ -9,6 +9,10 @@ import time
 #リスト登録です
 def run_test(driver):
 
+    time.sleep(3)
+    
+    driver.find_element(By.LINK_TEXT, "ホーム").click()
+
 
     # 「店舗広告」タブをクリック
     store_tab = driver.find_element(By.XPATH, "//button[contains(text(), '店舗広告')]")

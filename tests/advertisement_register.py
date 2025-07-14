@@ -5,6 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import TimeoutException
+
 import time
 def run_test(driver):
     # ActionChains準備
@@ -73,7 +75,7 @@ def run_test(driver):
     file_input = driver.find_element(By.ID, "file-upload")
 
     # アップロードしたい画像ファイルの絶対パスを指定
-    file_path = r"C:\Users\st20224116\Desktop\workspace\selenium\images\20off.png"
+    file_path = r"C:\Users\st20224116\Desktop\selenium\images\20off.png"
 
     # inputにファイルパスを送信 → これでファイル選択ダイアログを介さずアップロード完了
     file_input.send_keys(file_path)
@@ -89,8 +91,13 @@ def run_test(driver):
 
     register_button = driver.find_element(By.CLASS_NAME, "confirmed-button")
     register_button.click()
-    time.sleep(1)
-
-    registerconfirm_button = driver.find_element(By.CLASS_NAME, "button confirmed-button")
-    registerconfirm_button.click()
     time.sleep(2)
+
+    # モーダルが表示されるまで最大10秒待機
+    wait = WebDriverWait(driver, 10)
+    # モーダルが表示されたことを確認
+    wait.until(EC.visibility_of_element_located((By.ID, "completionModal")))
+    # 「閉じる」ボタンをクリック
+    close_button = driver.find_element(By.XPATH, "//div[@id='completionModal']//button[contains(text(), '閉じる')]")
+    close_button.click()
+
