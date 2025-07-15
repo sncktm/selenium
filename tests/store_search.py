@@ -58,6 +58,12 @@ def run_test(driver):
     wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".store-name")))
     time.sleep(3.0)  # 最後に結果を確認しやすく
 
+    
+    # 一番上の店舗をクリック
+    top_store = driver.find_element(By.CSS_SELECTOR, ".store-name")
+    top_store.click()
+    time.sleep(2.0)
+
     for i in range(10):  # 10回に分けて100pxずつスクロール
         driver.execute_script("window.scrollBy(0, 100);")
         time.sleep(0.5)  # ゆっくり下がっていく感じ

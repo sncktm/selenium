@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import time
 
-from tests import goods_search, store_search, store_login, member_login, time_sale_list, list_view, advertisement_update, home, list_register, advertisement_register, advertisement_delete, time_sale_register
+from tests import goods_search, store_search, store_login, member_login, time_sale_list, list_view, advertisement_update, home, list_register, advertisement_register, advertisement_delete, time_sale_register, time_sale_kakunin
 
 chrome_driver_path = r"C:\Users\st20224116\Desktop\selenium\chromedriver.exe"
 service = Service(executable_path=chrome_driver_path)
@@ -55,7 +55,7 @@ try:
     time_sale_list.run_test(driver)
 
     driver.switch_to.window(member_tab)
-    goods_search.run_test(driver)
+    time_sale_kakunin.run_test(driver)
 
     time.sleep(3)
 

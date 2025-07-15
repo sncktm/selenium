@@ -39,10 +39,10 @@ def run_test(driver):
     for List_no, form in form_list:
         print(f"Submitting List_No: {List_no}")
         form.submit()  # ← ここで form を直接 submit する
-        time.sleep(2)
+        time.sleep(3)
 
         driver.back()  # 戻る
-        time.sleep(2)
+        time.sleep(3)
 
         # ページが変わるので再取得
         form_list = collect_forms()

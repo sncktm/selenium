@@ -13,7 +13,6 @@ def run_test(driver):
         print("⚠️ 2個目の削除ボタンが見つかりません。")
         return
 
-    time.sleep(3)
     # JavaScriptで2個目をクリック（onclickが発火しない問題を回避）
     driver.execute_script("arguments[0].click();", delete_buttons[1])
     print("🖱️ 2個目の削除ボタンをクリックしました。")
@@ -39,5 +38,13 @@ def run_test(driver):
     except TimeoutException:
         print("⚠️ アラートが表示されなかったため、スキップします。")
 
-    # --- （オプション）完了モーダルが表示される場合の待機
+    time.sleep(3)
+     # モーダルが表示されるまで最大10秒待機
+    wait = WebDriverWait(driver, 10)
+    # モーダルが表示されたことを確認
+    wait.until(EC.visibility_of_element_located((By.ID, "completionModal")))
+    # 「閉じる」ボタンをクリック
+    close_button = driver.find_element(By.XPATH, "//div[@id='completionModal']//button[contains(text(), '閉じる')]")
+    close_button.click()
+
     time.sleep(3)
