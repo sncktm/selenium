@@ -1,30 +1,43 @@
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.alert import Alert
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import time
 
 def run_test(driver):
-    # 削除ボタンをクリック
-    delete_button = driver.find_element(By.CLASS_NAME, "delete-button")
-    delete_button.click()
-    time.sleep(1)
+    time.sleep(3)
+    # 一覧画面：2番目の削除ボタンをクリック
+    delete_buttons = driver.find_elements(By.CLASS_NAME, "delete-button")
+    if len(delete_buttons) < 2:
+        print("⚠️ 2個目の削除ボタンが見つかりません。")
+        return
 
-    # アラートが表示されるのを最大5秒待つ
+    time.sleep(3)
+    # JavaScriptで2個目をクリック（onclickが発火しない問題を回避）
+    driver.execute_script("arguments[0].click();", delete_buttons[1])
+    print("🖱️ 2個目の削除ボタンをクリックしました。")
+
+    # --- 詳細画面の削除フォームのボタンを待機
+    try:
+        delete_confirm_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "form#deleteForm button.delete-button"))
+        )
+        print("✅ 詳細画面の削除ボタンを検出しました。クリックします。")
+        delete_confirm_button.click()
+    except TimeoutException:
+        print("❌ 詳細画面の削除ボタンが表示されませんでした。")
+        return
+    time.sleep(3)
+    # --- JavaScriptアラートが表示されたら受け入れる
     try:
         WebDriverWait(driver, 5).until(EC.alert_is_present())
         alert = Alert(driver)
-        print(f"アラート検出: {alert.text}")
+        print(f"⚠️ アラート検出: {alert.text}")
         alert.accept()
         print("✅ アラートを受け入れました。")
     except TimeoutException:
         print("⚠️ アラートが表示されなかったため、スキップします。")
 
-    time.sleep(1)
-
-    # 確認ボタンをクリック
-    deleteconfirm_button = driver.find_element(By.CLASS_NAME, "confirmed-button")
-    deleteconfirm_button.click()
-    time.sleep(2)
+    # --- （オプション）完了モーダルが表示される場合の待機
+    time.sleep(3)
